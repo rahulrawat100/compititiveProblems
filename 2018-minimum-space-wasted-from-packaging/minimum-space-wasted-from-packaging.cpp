@@ -30,15 +30,15 @@ public:
                    break;
                 }
                 auto it = upper_bound(packages.begin(), packages.end(), boxes[i][k]);
-                cout<<*it<<endl;
+                //cout<<*it<<endl;
                    it--;
                 int ind = it-packages.begin(); 
-                cout<<ind<<endl;
+                //cout<<ind<<endl;
                 curr+=(long long)(ind-prevInd+1)*boxes[i][k]-(prefix[ind+1]-prefix[prevInd]);
                 //curr%=mod;  
                 prevInd = ind+1;
             }
-            cout<<i<<"  "<<curr<<endl;
+            //cout<<i<<"  "<<curr<<endl;
             ans=min(ans, curr);
 
         }
