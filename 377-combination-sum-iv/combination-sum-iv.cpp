@@ -2,7 +2,7 @@ class Solution {
 public:
     int calc(vector<int>& nums, int target, vector<int>& DP)
     {
-        cout<<target<<endl;
+      //  cout<<target<<endl;
          if(target==0)
             return 1;
          if(target<0)
