@@ -8,8 +8,8 @@ public class Solution {
         {
             for(int j=i+1; j<n; j++)
             {
-                if(nums[j]-nums[i]>high)
-                   break;
+               // if(nums[j]-nums[i]>high)
+                 //  break;
                 int x = nums[i]^nums[j];
                 if(x>=low&&x<=high)
                    count++;
