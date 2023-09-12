@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int calc(vector<vector<int>>& grid,queue<pair<pair<int, int>, int>>& Q, vector<vector<vector<bool>>>& trav)
+    int calc(vector<vector<int>>& grid,queue<pair<pair<int, int>, int>>& Q, vector<vector<int>>& trav)
     {
         if(Q.size()==0 )
           return INT_MAX;
@@ -14,7 +14,7 @@ public:
                 int k =Q.front().second;
                 s--;
                   Q.pop();
-                if(x<0 ||y<0 ||x==grid.size() || y==grid[0].size() ||  trav[x][y][k] )
+                if(x<0 ||y<0 ||x==grid.size() || y==grid[0].size() ||  k<=trav[x][y] )
                   continue;
                   if(x==grid.size()-1&&y==grid[0].size()-1)
                     return 0;
@@ -23,7 +23,7 @@ public:
                   {
                      if(k>0)
                      {
-                      trav[x][y][k]=true; 
+                      trav[x][y]=k; 
                      Q.push({{x+1, y}, k-1});
                      Q.push({{x-1, y}, k-1});
                      Q.push({{x, y+1}, k-1});
@@ -32,7 +32,7 @@ public:
                   }
                   else
                   {
-                    trav[x][y][k]=true;
+                    trav[x][y]=k;
                     Q.push({{x+1, y}, k});
                      Q.push({{x-1, y}, k});
                      Q.push({{x, y+1}, k});
@@ -45,7 +45,7 @@ public:
     }
     int shortestPath(vector<vector<int>>& grid, int k) {
         queue<pair<pair<int, int>, int>> q;
-        vector<vector<vector<bool>>> trav(grid.size(), vector<vector<bool>>(grid[0].size(), vector<bool>(k+1)));
+        vector<vector<int>> trav(grid.size(), vector<int>(grid[0].size(), -1));
         q.push({{0, 0}, k});
         int x= calc(grid,  q, trav);
         return x==INT_MAX?-1:x;
