@@ -47,7 +47,7 @@ public:
                 int x = trv.front().first.first;
                 int y = trv.front().first.second;
                 int k =trv.front().second;
-                trav[x][y][k]=false;
+             //   trav[x][y][k]=false;
                 trv.pop();
             }
             return res==INT_MAX?res:res+1;
