@@ -7,7 +7,6 @@ public:
         else
         {
             int s= Q.size();
-            queue<pair<pair<int, int>, int>> trv;
             while(s>0)
             { 
                 int x = Q.front().first.first;
@@ -17,7 +16,6 @@ public:
                   Q.pop();
                 if(x<0 ||y<0 ||x==grid.size() || y==grid[0].size() ||  trav[x][y][k] )
                   continue;
-                   trv.push({{x, y},k});
                   if(x==grid.size()-1&&y==grid[0].size()-1)
                     return 0;
 
@@ -42,14 +40,6 @@ public:
                   }
             } 
             int res= calc(grid, Q, trav);
-            while(!trv.empty())
-            {
-                int x = trv.front().first.first;
-                int y = trv.front().first.second;
-                int k =trv.front().second;
-             //   trav[x][y][k]=false;
-                trv.pop();
-            }
             return res==INT_MAX?res:res+1;
         }  
     }
