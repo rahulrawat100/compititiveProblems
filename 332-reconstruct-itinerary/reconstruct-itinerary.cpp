@@ -13,7 +13,7 @@ public:
 
     bool calc(unordered_map<int, vector<int>>& To, int i, vector<int>& curr, unordered_map<int, vector<int>>& ind, int tot)
     {
-         cout<<i<<endl;
+    //     cout<<i<<endl;
         curr.push_back(i);
         if(curr.size()==tot)
           return true; 
@@ -55,12 +55,12 @@ public:
           for(auto it: To)
           {
               sort(it.second.begin(), it.second.end());
-              cout<<mapper[it.first]<<": "<<it.first<<" : ";
+           //   cout<<mapper[it.first]<<": "<<it.first<<" : ";
               for(int i=0; i<it.second.size(); i++)
               {
                   To2[it.first].push_back(it.second[i]);
                   ind[it.first].push_back(false);
-                  cout<<mapper[it.second[i]]<<"  ";
+                //   cout<<mapper[it.second[i]]<<"  ";
               }
               cout<<endl;
           }
