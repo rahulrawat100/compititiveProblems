@@ -4,11 +4,12 @@ public:
         int n = s.size();
         int ans=1;
         string res="";
+        string temp;
         for(int i=0; i<n; i++)
         {
             int x=i-1;
             int y=i+1;
-            string temp="";
+            temp="";
              temp+=s[i];
             while(x>=0&&y<n)
             {
