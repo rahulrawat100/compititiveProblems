@@ -1,13 +1,13 @@
 class Solution {
 public:
-    int calc(vector<vector<int>>& adj, vector<int>& coins, int k, int i, vector<bool>& trav, int div, vector<unordered_map<int, int>>& DP)
+    int calc(vector<vector<int>>& adj, vector<int>& coins, int k, int i, vector<bool>& trav, int div, vector<vector<int>>& DP)
     {
         int d=pow(2, div);
-        if(trav[i] || div>15)
+        if(trav[i] || div>=15)
             return 0;
         if(adj[i].size()==0)
             return max(coins[i]/div-k, coins[i]/(2*d));
-        if(DP[i].find(div)!=DP[i].end())
+        if(DP[i][div]!=-1)
            return DP[i][div];    
         else
         {
@@ -36,7 +36,7 @@ public:
             adj[edges[i][1]].push_back(edges[i][0]);
         }
         vector<bool> trav(n);
-        vector<unordered_map<int, int>> DP(n);
+        vector<vector<int>> DP(n, vector<int>(15, -1));
         return calc(adj, coins, k, 0, trav, 0, DP);
         
     }
