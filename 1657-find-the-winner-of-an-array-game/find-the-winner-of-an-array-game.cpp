@@ -9,14 +9,13 @@ public:
             if(res>arr[i])
             {
                 count++;
-                if(count==k)return res;
             }
             else
             {
                 count=1;
                 res=arr[i];
-                if(count==k)return res;
             }
+            if(count==k)return res;
         }
         return res;
 
