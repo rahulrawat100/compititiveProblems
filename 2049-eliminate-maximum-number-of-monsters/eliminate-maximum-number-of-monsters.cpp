@@ -11,10 +11,10 @@ public:
         }
 
         sort(reach.begin(), reach.end());
-        cout<<reach[0]<<endl;
+        //cout<<reach[0]<<endl;
         for(int i=1; i<n; i++)
         {
-            cout<<reach[i]<<endl;
+            //cout<<reach[i]<<endl;
             if(reach[i]<=i)
                return i;
         }
