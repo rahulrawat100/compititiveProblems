@@ -15,6 +15,8 @@ public:
             for(int j=0; j<words[i].size(); j++)
             {
                 E[words[i][j]-'a']++;
+                if(E[words[i][j]-'a']>D[words[i][j]-'a'])
+                   break;
             }
              bool has=true;
             for(int j=0; j<26; j++)
