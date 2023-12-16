@@ -27,10 +27,10 @@ public:
                plates[i+1]=plates[i];  
         }
 
-        for(int i=0; i<=n; i++)
-        {
-            cout<<plates[i]<<"  ";
-        }
+        // for(int i=0; i<=n; i++)
+        // {
+        //     cout<<plates[i]<<"  ";
+        // }
 
         vector<int> res;
 
