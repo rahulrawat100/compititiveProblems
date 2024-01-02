@@ -5,21 +5,19 @@ public:
 
         int n = nums.size();
          vector<vector<int>> res;
+         vector<int> D;
         for(int i=0; i<n; i++)
         {
             if(Pos.find(nums[i])==Pos.end())
                {
-                    vector<int> D;
-                    D.push_back(nums[i]);
-                   if(res.size()>0)
-                     res[0].push_back(nums[i]);
-                    else
+                    
+                   if(res.size()==0)
                       res.push_back(D);
+                    res[0].push_back(nums[i]);
                      Pos[nums[i]]=1;
                }
                else
                {
-                   vector<int> D;
                    if(res.size()<=Pos[nums[i]])
                      res.push_back(D);
                     res[Pos[nums[i]]].push_back(nums[i]);
