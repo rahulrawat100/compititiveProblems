@@ -1,34 +1,26 @@
-class Solution 
-{
+class Solution {
 public:
-    int dp[8000][71];
-    int n,m;
-    int find(vector<vector<int>>&mat,int r,int sum,int &target)
+    int calc(vector<vector<int>>& mat,int i,int sum, int target, vector<vector<int>>& DP)
     {
-        if(r>=n)
+        if(i==mat.size())
+           return abs(target-sum);
+        if(target<0)
+           return INT_MAX;
+        if(DP[i][sum]!=-1)
+          return DP[i][sum];  
+        else
         {
-            return abs(sum-target);
-        }
-        if(dp[sum][r]!=-1)
-        {
-            return dp[sum][r];
-        }
-        int ans=INT_MAX;
-        for(int i=0;i<m;i++)
-        {
-            ans=min(ans,find(mat,r+1,sum+mat[r][i],target));
-            if(ans==0)
+            int res=INT_MAX;
+            for(int j=0; j<mat[i].size(); j++)
             {
-                break;
+                res =min(res, calc(mat, i+1, sum+mat[i][j], target, DP));
+                if(res==0)break;
             }
-        }
-        return dp[sum][r]=ans;
+            return DP[i][sum]=res;
+        }   
     }
-    int minimizeTheDifference(vector<vector<int>>& mat, int target) 
-    {
-        memset(dp,-1,sizeof(dp));
-        n=mat.size();
-        m=mat[0].size();
-        return find(mat,0,0,target);
+    int minimizeTheDifference(vector<vector<int>>& mat, int target) {
+        vector<vector<int>> DP(mat.size(), vector<int>(5000, -1));
+        return calc(mat, 0, 0, target, DP);
     }
 };
