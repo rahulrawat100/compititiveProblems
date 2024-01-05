@@ -28,9 +28,9 @@ public:
           return false;
     }
 
-    int binser(vector<vector<int>>& grid, int A, int B)
+    int binser(vector<vector<int>>& grid, int A, int B, vector<vector<int>>& trav)
     {
-        cout<<A<<"  "<<B<<endl;
+       // cout<<A<<"  "<<B<<endl;
         int m = grid.size();
         int n = grid[0].size();
         if(A==B)
@@ -38,21 +38,23 @@ public:
         else
         {
             int mid = A+(B-A)/2;
-            vector<vector<int>> trav1(m, vector<int>(n, -1));
-            vector<vector<int>> trav2(m, vector<int>(n, -1));
-            if(valid(grid, 0, 0, mid, trav1))
+            vector<int> D(n, -1);
+            fill(trav.begin(), trav.end(), D);
+            if(valid(grid, 0, 0, mid, trav))
             {
-                if(!valid(grid, 0, 0, mid-1, trav2))
+                fill(trav.begin(), trav.end(), D);
+                if(!valid(grid, 0, 0, mid-1, trav))
                    return mid;
                  else
-                  return binser(grid,A, mid-1);  
+                  return binser(grid,A, mid-1, trav);  
             }
             else
             {
-                if(valid(grid, 0, 0, mid+1, trav2))
+                fill(trav.begin(), trav.end(), D);
+                if(valid(grid, 0, 0, mid+1, trav))
                    return mid+1;
                  else
-                  return binser(grid, mid+1, B);  
+                  return binser(grid, mid+1, B, trav);  
             }
             
         }  
@@ -60,6 +62,7 @@ public:
     int minCost(vector<vector<int>>& grid) {
         int m = grid.size();
         int n = grid[0].size();
-        return binser(grid, 0, m+n);
+        vector<vector<int>> trav(m, vector<int>(n, -1));
+        return binser(grid, 0, m+n, trav);
     }
 };
