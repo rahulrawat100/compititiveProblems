@@ -18,12 +18,12 @@ public:
     
     void changeRating(string food, int newRating) {
         string c = E[food];
-        cout<<food<<"  "<<c<<endl;
+        //cout<<food<<"  "<<c<<endl;
         int r = F[food];
         F[food]=newRating;
         D[c].erase({r, food});
         D[c].insert({newRating, food});
-        cout<<c<<"  "<<D[c].size()<<endl;
+       // cout<<c<<"  "<<D[c].size()<<endl;
     }
     
     string highestRated(string cuisine) {
