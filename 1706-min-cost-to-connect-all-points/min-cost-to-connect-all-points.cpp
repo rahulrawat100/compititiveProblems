@@ -1,82 +1,53 @@
 class Solution {
 public:
-    bool compared(vector<int>& first, vector<int>& second)
-    {
-        if(first[2]<second[2])
-            return true;
-        return false;
-    }
-    
-    int getpar(int x, vector<int>& par)
+    int getpar(vector<int>& par, int x)
     {
         if(par[x]==x)
-            return x;
+          return x;
         else
-            return par[x]= getpar(par[x], par);
+          return par[x]=getpar(par, par[x]);  
     }
-    
-    void uniont(int x, int y, vector<int>& par, vector<int>& rank)
-    {
-        int X = getpar(x, par);
-        int Y = getpar(y, par);
-        
-        if(X==Y)
-            return ;
-        if(rank[X]>rank[Y])
-           par[Y]=par[X];
-        else if(rank[Y]>rank[X])
-            par[X]=par[Y];
-        else
-        {
-            par[Y]=par[X];
-            rank[X]++;
-        }
-    }
-    
     int minCostConnectPoints(vector<vector<int>>& points) {
-        sort(points.begin(), points.end());
-        vector<vector<int>> D;
-        int n = points.size();
-        for(int i=0; i<n; i++)
-        {
+          int n = points.size();
+          priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+          for(int i=0; i<n; i++)
+          {
+              for(int j=i+1; j<n; j++)
+              {
+                  int cost = abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
+                 // cout<<i<<"  "<<j<<"  "<<cost<<endl;
+                  pq.push({cost, {i, j}});
+              }
+          }
 
-            for(int j=i+1; j<n; j++)
-            {
-                vector<int> M;
-                M.push_back(abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]));
-                M.push_back(i);
-                M.push_back(j);
-                D.push_back(M);
-            }
+          vector<int> par(n);
 
-        }
-        vector<int> par(n, 0);
-        vector<int> rank(n, 1);
-        for(int i=0; i<n; i++)
-        {
-            par[i]=i;
-        }
-        sort(D.begin(), D.end());
-      
-     //   vector<int> dist(n, INT_MAX);
-        int cost=0;
-        int count =0;
-        for(int p=0; p<D.size(); p++)
-        {
-            int X = getpar(D[p][1], par);
-            int Y = getpar(D[p][2], par);
-            
-            if(X!=Y)
-            {
-                uniont(D[p][1], D[p][2], par, rank);
-                cost+= D[p][0];
-                count++;
-              
-            }
-            if(n==count)
-                break;
-        }
-        return cost;
-        
+          for(int i=0; i<n; i++)
+          {
+              par[i]=i;
+          }
+
+          int count=1;
+          int cost=0;
+          while(!pq.empty()&&count<n)
+          {
+              int i=pq.top().second.first;
+              int j=pq.top().second.second;
+
+              int I=getpar(par, i);
+              int J=getpar(par, j);
+
+              if(I!=J)
+              {
+                //  cout<<i<<"  "<<j<<endl;
+                     cost+=pq.top().first;
+                  //   cout<<cost<<endl;
+                     par[I]=J;
+                     count++;
+              }
+                            pq.pop();
+          }
+
+          return cost;
     }
 };
