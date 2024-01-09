@@ -23,10 +23,10 @@ public:
     void insert(string word) {
         int n = word.size();
         Node* curr=N;
+        Node* temp;
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            Node* temp;
             if(curr->next[ind]!=NULL)
                curr =curr->next[ind];
              else
