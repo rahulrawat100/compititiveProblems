@@ -23,7 +23,7 @@ public:
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind] == nullptr)
+            if(curr->next[ind] == NULL)
                curr->next[ind]=new Node();
             curr=  curr->next[ind];    
         }
