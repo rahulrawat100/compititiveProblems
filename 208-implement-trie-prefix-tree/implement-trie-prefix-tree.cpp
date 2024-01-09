@@ -1,15 +1,12 @@
 class Node
 {
     public:
-    vector<Node*> next;
-    bool ends=false;
+    Node *next[26]{};
+    bool ends;
 
     Node()
     {
-        for(int i=0; i<26; i++)
-        {
-            next.push_back(NULL);
-        }
+        ends=false;
     }
 };
 
@@ -23,18 +20,12 @@ public:
     void insert(string word) {
         int n = word.size();
         Node* curr=N;
-        Node* temp;
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind]!=NULL)
-               curr =curr->next[ind];
-             else
-             {
-                 temp = new Node();
-                 curr->next[ind]=temp;
-                 curr=temp;
-             }    
+            if(curr->next[ind] == nullptr)
+               curr->next[ind]=new Node();
+            curr=  curr->next[ind];    
         }
         curr->ends=true;
     }
@@ -45,12 +36,9 @@ public:
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind]!=NULL)
-              {
-                  curr=curr->next[ind];
-              }
-              else
-                  return false;
+            if(curr->next[ind]==nullptr)
+               return false;
+            curr=curr->next[ind];   
         }
         return curr->ends;
     }
@@ -61,12 +49,9 @@ public:
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind]!=NULL)
-              {
-                  curr=curr->next[ind];
-              }
-              else
-                  return false;
+            if(curr->next[ind]==nullptr)
+               return false;
+            curr=curr->next[ind];  
         }
         return true;
     }
