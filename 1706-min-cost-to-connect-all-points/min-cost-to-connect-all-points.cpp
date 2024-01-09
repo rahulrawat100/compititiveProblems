@@ -1,53 +1,35 @@
 class Solution {
 public:
-    int getpar(vector<int>& par, int x)
-    {
-        if(par[x]==x)
-          return x;
-        else
-          return par[x]=getpar(par, par[x]);  
-    }
     int minCostConnectPoints(vector<vector<int>>& points) {
           int n = points.size();
           priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
-          for(int i=0; i<n; i++)
-          {
-              for(int j=i+1; j<n; j++)
-              {
-                  int cost = abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
-                 // cout<<i<<"  "<<j<<"  "<<cost<<endl;
-                  pq.push({cost, {i, j}});
-              }
-          }
-
-          vector<int> par(n);
-
-          for(int i=0; i<n; i++)
-          {
-              par[i]=i;
-          }
-
           int count=1;
+          vector<bool> trav(n);
+          trav[0]=true;
+          int curr=0;
           int cost=0;
-          while(!pq.empty()&&count<n)
+          while(count<n)
           {
-              int i=pq.top().second.first;
-              int j=pq.top().second.second;
-
-              int I=getpar(par, i);
-              int J=getpar(par, j);
-
-              if(I!=J)
+              for(int j=0; j<n; j++)
               {
-                //  cout<<i<<"  "<<j<<endl;
-                     cost+=pq.top().first;
-                  //   cout<<cost<<endl;
-                     par[I]=J;
-                     count++;
+                  if(trav[j])continue;
+                  int cost = abs(points[curr][0]-points[j][0])+abs(points[curr][1]-points[j][1]);
+                  pq.push({cost, {curr, j}});
               }
-                            pq.pop();
-          }
 
+              while(trav[pq.top().second.second])
+              {
+                  pq.pop();
+              }
+              cost+=pq.top().first;
+              curr=pq.top().second.second;
+              pq.pop();
+              trav[curr]=true;
+              count++;
+          }
           return cost;
+          
+          
+          
     }
 };
