@@ -36,7 +36,7 @@ public:
         for(int i=0; i<n; i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind]==nullptr)
+            if(curr->next[ind]==NULL)
                return false;
             curr=curr->next[ind];   
         }
