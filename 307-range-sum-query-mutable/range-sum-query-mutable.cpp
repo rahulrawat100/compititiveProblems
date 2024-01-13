@@ -1,78 +1,84 @@
-class Node
-{
-    public:
-    int l;
-    int r;
-    int val;
-    Node* left=NULL;
-    Node* right=NULL;
-};
-
-Node* create(vector<int>& nums, int i, int j)
-{
-    //cout<<i<<" "<<j<<endl;
-    if(i>j)
-      return NULL;
-     if(i==j)
-     {
-         Node* n= new Node();
-         n->l=i;
-         n->r=j;
-         n->val=nums[i];
-         return n;
-     }
-    else
-    {
-        int mid = i+(j-i)/2;
-        Node* n= new Node();
-        n->left = create(nums, i, mid);
-        n->right = create(nums, mid+1, j);
-        n->val = n->left->val+n->right->val;
-        n->l=i;
-        n->r=j;
-        return n;
-    } 
-}
-
-
-int calcsum(Node* root, int i, int j)
-{
-    if(root->l>=i&&root->r<=j)
-       return root->val;
-     else if(root->r<i || root->l>j)
-      return 0;
-     else
-      return calcsum(root->left, i, j)+calcsum(root->right, i, j);      
-}
-
-void updates(Node* root, int i, int value)
-{
-    if(root->r<i ||root->l>i)
-      return;
-    if(root->l==i && root->r==i)
-      {
-          root->val=value;
-      }
-     else 
-     {
-          updates(root->left, i, value);
-          updates(root->right, i, value);
-          root->val = root->left->val+root->right->val;
-     }
-}
 class NumArray {
 public:
-    Node* root;
+     vector<int> ST;
+     int n;
+    void create(vector<int>& nums, int i, int j, int ind)
+    {
+        if(i>j)
+          return;
+        if(i==j)
+        {
+            //cout<<ind<<"  "<<nums[i]<<endl;;
+            ST[ind]=nums[i];
+            return;
+        }
+        else
+        {
+            int mid = i+(j-i)/2;
+            int left=2*ind+1;
+            int right =2*ind+2;
+            create(nums,  i, mid, left);
+            create(nums,  mid+1, j, right);
+            ST[ind]=ST[left]+ST[right];
+            return ;
+        }
+          
+    }
+
     NumArray(vector<int>& nums) {
-       root =create(nums, 0, nums.size()-1);  
+         n = nums.size();
+        ST.resize(4*n);
+        create(nums,0, n-1, 0);
+       // cout<<"create"<<endl;
     }
     
+    void update(int i, int j, int ind, int index, int val)
+    {
+       // cout<<"update"<<endl;
+        if(index<i || index>j)
+          return;
+        else if(i==j)
+          {
+              ST[ind]=val;
+          }
+         else 
+         {
+            int mid = i+(j-i)/2;
+            int left=2*ind+1;
+            int right =2*ind+2;
+            update(i, mid, left, index, val);
+            update(mid+1, j, right, index, val);
+            ST[ind]=ST[left]+ST[right];
+        }  
+       // cout<<"Eupdate"<<endl;
+
+    }
     void update(int index, int val) {
-        updates(root, index, val);
+         //cout<<"update"<<endl;
+        return update(0, n-1, 0, index, val);
     }
     
+     int sum(int i, int j, int left, int right, int ind)
+     {
+        //cout<<ind<<endl;
+         if(i>j)
+           return 0;
+         if(right<i || left>j)
+          return 0;
+         else if(left<=i&&right>=j)
+           return ST[ind]; 
+         else
+         {
+             int mid = i+(j-i)/2;
+            int left1=2*ind+1;
+            int right1 =2*ind+2;
+            return sum(i, mid, left, right, left1)+sum(mid+1, j, left, right, right1);
+
+         } 
+     }
     int sumRange(int left, int right) {
-        return calcsum(root, left, right);
+        // cout<<"sum"<<endl;
+        return sum(0, n-1, left, right, 0);
     }
 };
 
