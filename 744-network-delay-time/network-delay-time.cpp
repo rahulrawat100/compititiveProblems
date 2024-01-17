@@ -13,7 +13,7 @@ public:
             while(count<adj.size()&&!pq.empty()&&pq.top().first==time)
             {
                 int v = pq.top().second;
-                cout<<v<<endl;
+               // cout<<v<<endl;
                 pq.pop();
                 if(trav[v])continue;
                 trav[v]=true;
