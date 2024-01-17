@@ -26,7 +26,7 @@ public:
                 for(int j=0; j<adj[v].size(); j++)
                 {
                     if(trav[adj[v][j].first])continue;
-                    cout<<"pq  "<<adj[v][j].first<<endl;
+                    //cout<<"pq  "<<adj[v][j].first<<endl;
                     pq.push({t+adj[v][j].second, adj[v][j].first});
                 }
             }
