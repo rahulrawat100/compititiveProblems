@@ -19,7 +19,7 @@ public:
               }
               if(i==0)
               return person;
-              res+=(long long)ceil((double)person/seats);
+              res+=(person+seats-1)/seats;
               return person;
           } 
      }
