@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int calc(vector<vector<int>>& adj,  int i, int seats, vector<bool>& trav, long long& res)
+    long long res=0;
+    int calc(vector<vector<int>>& adj,  int i, int seats, vector<bool>& trav)
      {
          if(trav[i])return 0;
          trav[i]=true;
@@ -14,7 +15,7 @@ public:
               int person=1;
               for(int j=0; j<adj[i].size(); j++)
               {
-                  person+=calc(adj, adj[i][j], seats,trav, res);
+                  person+=calc(adj, adj[i][j], seats,trav);
               }
               if(i==0)
               return person;
@@ -35,9 +36,8 @@ public:
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-       long long res=0;
        vector<bool> trav(n);
-       int x = calc(adj, 0, seats, trav, res);
+       int x = calc(adj, 0, seats, trav);
        return res;
     }
 };
