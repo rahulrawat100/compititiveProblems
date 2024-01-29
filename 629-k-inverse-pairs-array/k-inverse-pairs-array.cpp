@@ -1,6 +1,6 @@
 class Solution {
 public:
- int mod = pow(10, 9)+7;
+     int mod = pow(10, 9)+7;
     int calc(int i, int k, int n, vector<vector<int>>& DP)
     {
             if(k==0)
