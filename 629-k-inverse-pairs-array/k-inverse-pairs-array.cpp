@@ -1,8 +1,9 @@
 class Solution {
 public:
-     int mod = pow(10, 9)+7;
+     
     int calc(int i, int k, int n, vector<vector<int>>& DP)
     {
+        int mod = pow(10, 9)+7;
             if(k==0)
              return 1;
            if(i==n || k<0)
