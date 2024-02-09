@@ -9,7 +9,8 @@ public:
         else
           {
               int res=INT_MAX;
-              for(int i=1; i*i<=n;i++)
+              int i = pow(n, 0.5);
+              for(; i>=1;i--)
               {
                   res=min(res, 1+numSquares(n-i*i));
               }
