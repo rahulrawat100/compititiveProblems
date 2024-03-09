@@ -15,11 +15,9 @@ public:
     }
     
     int next(int n) {
-        if(curr>count)return -1;
         curr+=n;
-        //if(curr>count)return -1;
+                if(curr>count)return -1;
         auto it = D.lower_bound(curr);
-        if(it==D.end())return -1;
         return it->second;
     }
 };
