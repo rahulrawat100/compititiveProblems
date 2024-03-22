@@ -28,8 +28,7 @@ public:
               Add(grid, x, y+1, q1, q2, trav);
               Add(grid, x, y-1, q1, q2, trav); 
         }
-        queue<pair<int, int>> q3;
-        return 1+calc(grid, q2, q3, trav);
+        return 1+calc(grid, q2, q1, trav);
     }
     int minimumObstacles(vector<vector<int>>& grid) {
          queue<pair<int, int>> q1;
