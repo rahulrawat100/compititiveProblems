@@ -26,7 +26,7 @@ public:
                 curr=curr|nums[j];
                 j++;
             }
-            cout<<i<<"  "<<j<<"  "<<curr<<endl;
+           // cout<<i<<"  "<<j<<"  "<<curr<<endl;
             if(curr>=k)
             res=min(res, j-i);
             
@@ -45,7 +45,7 @@ public:
                     x=x/2;
                     ind++;
                 }
-                cout<<curr<<endl;
+                //cout<<curr<<endl;
                 res=min(res, j-i);
                 i++;
             }
