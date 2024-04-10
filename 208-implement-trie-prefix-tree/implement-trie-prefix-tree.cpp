@@ -1,57 +1,50 @@
 class Node
 {
-    public:
-    Node *next[26]{};
-    bool ends;
-
-    Node()
-    {
-        ends=false;
-    }
+   public:
+     bool ends=false;
+     Node* child[26];
 };
 
 class Trie {
 public:
-    Node* N;
+    Node* root = new Node();
     Trie() {
-        N= new Node();
+        
     }
     
     void insert(string word) {
-        int n = word.size();
-        Node* curr=N;
-        for(int i=0; i<n; i++)
+        Node* curr =root;
+        for(int i=0; i<word.size(); i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind] == NULL)
-               curr->next[ind]=new Node();
-            curr=  curr->next[ind];    
+            if(curr->child[ind]==NULL)
+               curr->child[ind]=new Node();
+            curr=curr->child[ind];   
         }
         curr->ends=true;
     }
     
     bool search(string word) {
-        int n=word.size();
-        Node* curr=N;
-        for(int i=0; i<n; i++)
+        Node* curr =root;
+        for(int i=0; i<word.size(); i++)
         {
             int ind = word[i]-'a';
-            if(curr->next[ind]==NULL)
+                        cout<<ind<<endl;
+            if(curr->child[ind]==NULL)
                return false;
-            curr=curr->next[ind];   
+            curr=curr->child[ind];   
         }
         return curr->ends;
     }
     
-    bool startsWith(string word) {
-        int n=word.size();
-        Node* curr=N;
-        for(int i=0; i<n; i++)
+    bool startsWith(string prefix) {
+                Node* curr =root;
+        for(int i=0; i<prefix.size(); i++)
         {
-            int ind = word[i]-'a';
-            if(curr->next[ind]==nullptr)
+            int ind = prefix[i]-'a';
+            if(curr->child[ind]==NULL)
                return false;
-            curr=curr->next[ind];  
+            curr=curr->child[ind];   
         }
         return true;
     }
