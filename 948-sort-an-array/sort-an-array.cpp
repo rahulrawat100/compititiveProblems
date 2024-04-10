@@ -1,49 +1,46 @@
 class Solution {
 public:
-     void swap(vector<int>& nums,int i, int j)
-     {
-         int t=nums[i];
-         nums[i]=nums[j];
-         nums[j]=t;
-
-     }
-    void Heapify(vector<int>& nums, int i, int n)
+    void heapify(vector<int>& nums, int i, int ignore)
     {
-        int l=2*i+1;
-        int r=2*i+2;
-        int largest=i;
-        if(l<n&&nums[l]>nums[largest])
-           largest=l;
-        if(r<n&&nums[r]>nums[largest])
-           largest=r;
-        if(largest!=i)
+        int n = nums.size();
+        int left = 2*i+1;
+        int right = 2*i+2;
+
+        int maxi = i;
+        if(left<n-ignore)
         {
-            swap(nums, i, largest);
-            Heapify(nums, largest, n);
-        }     
-
+            if(nums[left]>nums[maxi])
+               maxi=left;
+        }
+        if(right<n-ignore)
+        {
+            if(nums[right]>nums[maxi])
+               maxi=right;
+        }
+        if(maxi!=i)
+        {
+            int t = nums[i];
+            nums[i]=nums[maxi];
+            nums[maxi]=t;
+            heapify(nums, maxi, ignore);
+        }
     }
-
-    void heapsort(vector<int>& nums)
-    {
+    vector<int> sortArray(vector<int>& nums) {
         int n = nums.size();
 
         for(int i=n/2; i>=0; i--)
         {
-            Heapify(nums, i, n);
+            heapify(nums, i, 0);
         }
 
-        for(int i=0; i<n; i++)
+        for(int i=0; i<n-1; i++)
         {
-            swap(nums, 0, n-1-i);
-            Heapify(nums, 0, n-1-i);
+            int t=nums[n-1-i];
+            nums[n-1-i]=nums[0];
+            nums[0]=t;
+            heapify(nums, 0, i+1);
+ 
         }
-    }
-    vector<int> sortArray(vector<int>& nums) {
-           heapsort(nums);
-           return nums;
+        return nums;
     }
 };
-//      5
-//    2   3  
-//   1 
