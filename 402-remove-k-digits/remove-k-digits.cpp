@@ -2,48 +2,48 @@ class Solution {
 public:
     string removeKdigits(string num, int k) {
         int n = num.size();
+         if(n==k)
+           return "0";
+        priority_queue<pair<char, int>, vector<pair<char, int>>, greater<pair<char, int>>> pq;
 
-        stack<char> st;
-        int c=k;
-        for(int i=0; i<n; i++)
+        int i=0;
+        while(i<=k)
         {
-            if(st.size()<=k&&num[i]=='0')
-            {
-                while(!st.empty())
-                {
-                    st.pop();
-                    k--;
-                }
-                continue;
-            }
-            else if(!st.empty())
-            {
-                while(k>0&&!st.empty()&&st.top()>num[i])
-                {
-                    st.pop();
-                    k--;
-                }
-            }
-               if(st.size()==(n-c))
-               {
-                k--;
-                continue;
-               }
-               st.push(num[i]);
-
+            pq.push({num[i], i});
+            i++;
         }
+
         string res="";
-                 while(k>0&&!st.empty())
-                {
-                    st.pop();
-                    k--;
-                }
-        while(!st.empty())
+        int prev=-1;
+        while(i<=n)
         {
-            res+=st.top();
-            st.pop();
+            if(!pq.empty()&&k>0)
+            {
+            while(pq.top().second<prev)
+            {
+                pq.pop();
+            }
+            pair<char, int> p = pq.top();
+            pq.pop();
+            if(res.size()>0||p.first!='0')
+            res+=p.first;
+            k-=p.second- prev-1;
+            prev=p.second;
+             //cout<<p.first<<"  "<<p.second<<endl;
+            }
+            if(i<n&&k>0)
+            pq.push({num[i], i});
+          else
+              break;  
+            i++;
         }
-        reverse(res.begin(), res.end());
+         prev++;
+        while(k==0&&prev<n)
+        {
+            if(res.size()>0||num[prev]!='0')
+            res+=num[prev];
+            prev++;
+        }
         if(res.size()==0)return "0";
         return res;
 
