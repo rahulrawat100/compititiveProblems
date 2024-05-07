@@ -15,7 +15,7 @@ public:
             }
             i+=k;
             freq[s]++;
-            cout<<s<<"  "<<freq[s]<<endl;
+            //cout<<s<<"  "<<freq[s]<<endl;
             mx=max(mx, freq[s]);
         }
         return rep-mx;
