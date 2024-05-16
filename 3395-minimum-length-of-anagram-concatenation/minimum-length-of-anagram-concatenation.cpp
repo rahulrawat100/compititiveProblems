@@ -36,7 +36,7 @@ public:
         vector<int> freq(26, 0);
         for(int i=1; i<=n; i++)
         {
-           if(check(DP, i))
+           if(n%i==0&&check(DP, i))
              return i;
         }
         return n;
