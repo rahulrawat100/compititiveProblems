@@ -32,7 +32,7 @@ public:
         {
             res=min(res, cost(nums, cost1, cost2, i, sum));
         }
-        cout<<res<<endl;
+       // cout<<res<<endl;
         return res%mod;
     }
 };
