@@ -1,69 +1,71 @@
 class Solution {
 public:
-    vector<pair<int, int>> Sorty(vector<pair<int, int>>& D, int i, int j, vector<int>&DP, int diff)
+    void Sorty(vector<pair<int, int>>& D, int i, int j, vector<int>&DP, int diff)
     {
         //cout<<i<<" "<<j<<endl;
-        if(i>j)
-           return {{}};
-        if(i==j)
-           return {D[i]};
+        if(i>=j)
+           return;
         else
         {
             int mid = i+(j-i)/2;
-            vector<pair<int, int>> left = Sorty(D, i, mid, DP, diff);
-            vector<pair<int, int>> right = Sorty(D, mid+1, j, DP, diff);
-             return merge(left, right, DP, diff);
-            //return left;
+            Sorty(D, i, mid, DP, diff);
+            Sorty(D, mid+1, j, DP, diff);
+            merge(D,i,j, DP, diff);
         }   
     }
 
 
-    vector<pair<int, int>> merge(vector<pair<int, int>>& left, vector<pair<int, int>>& right, vector<int>& DP, int diff)
+    void merge(vector<pair<int, int>>& D, int i, int j, vector<int>& DP, int diff)
     {
+        //cout<<i<<"  "<<j<<endl;
         vector<pair<int, int>> res;
-        int m = left.size();
-        int n = right.size();
-        int i=0; 
-        int j=0;
-        for(;j<n;j++)
+        int mid =i+(j-i)/2;
+        int i1=i; 
+        int j1=mid+1;
+        for(;j1<=j;j1++)
         {
-            for(;i<m;i++)
+            for(;i1<=mid;i1++)
             {
-                if(left[i].first>right[j].first+diff)
+                if(D[i1].first>D[j1].first+diff)
                    break;
             }
             //cout<<right[j].second<<"  "<<i<<endl;
-            DP[right[j].second]+=i;
+            DP[D[j1].second]+=i1-i;
         }
-        i=0;
-        j=0;
-        while(i<m||j<n)
+        i1=i;
+        j1=min(j,mid+1);
+        while(i1<=mid||j1<=j)
         {
-            if(i<m&&j<n)
+            //cout<<i1<<"  *  "<<mid<<"    "<<j1<<endl;
+            if(i1<=mid&&j1<=j)
             {
-                if(left[i].first<=right[j].first)
+                if(D[i1].first<=D[j1].first)
+                {
+                    res.push_back(D[i1]);
+                      i1++;
+                }
+                  else
                    {
-                      res.push_back(left[i]);
-                      i++;
-                   }
-                   else
-                   {
-                      res.push_back(right[j]);
-                      j++;
+                      res.push_back(D[j1]);
+                      j1++;
                    }
             }
-            else if(i<m)
+            else if(i1<=mid)
             {
-                    res.push_back(left[i]);
-                      i++;
+                    res.push_back(D[i1]);
+                      i1++;
             }
             else
             {
-                res.push_back(right[j]);
-                      j++;
+                res.push_back(D[j1]);
+                      j1++;
             }
         }
-        return res;
+        //cout<<"--"<<endl;
+           for(int k=0; k<res.size(); k++)
+            {
+                D[i+k]=res[k];
+            }
     }
     long long numberOfPairs(vector<int>& nums1, vector<int>& nums2, int diff) {
         int n = nums1.size();
@@ -74,11 +76,11 @@ public:
             D.push_back({nums1[i]-nums2[i], i});
         }
         vector<int>DP(n, 0);
-      D= Sorty(D, 0, n-1, DP, diff);
+        Sorty(D, 0, n-1, DP, diff);
         long long res=0;
        for(int i=0; i<n; i++)
         {
-            //cout<<C[i].first<<"  "<<C[i].second<<"  "<<DP[i]<<endl;
+            cout<<D[i].first<<"  "<<D[i].second<<"  "<<DP[i]<<endl;
             res+=DP[i];
         }
         return res;
