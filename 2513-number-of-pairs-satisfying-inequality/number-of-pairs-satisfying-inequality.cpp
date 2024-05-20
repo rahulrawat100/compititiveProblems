@@ -80,7 +80,7 @@ public:
         long long res=0;
        for(int i=0; i<n; i++)
         {
-            cout<<D[i].first<<"  "<<D[i].second<<"  "<<DP[i]<<endl;
+            //cout<<D[i].first<<"  "<<D[i].second<<"  "<<DP[i]<<endl;
             res+=DP[i];
         }
         return res;
