@@ -74,7 +74,7 @@ public:
             D.push_back({nums1[i]-nums2[i], i});
         }
         vector<int>DP(n, 0);
-        vector<pair<int, int>> C= Sorty(D, 0, n-1, DP, diff);
+      D= Sorty(D, 0, n-1, DP, diff);
         long long res=0;
        for(int i=0; i<n; i++)
         {
