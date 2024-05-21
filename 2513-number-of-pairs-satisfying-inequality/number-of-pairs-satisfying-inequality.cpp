@@ -1,5 +1,6 @@
 class Solution {
 public:
+    vector<pair<int, int>> temp;
     void Sorty(vector<pair<int, int>>& D, int i, int j, vector<int>&DP, int diff)
     {
         //cout<<i<<" "<<j<<endl;
@@ -18,7 +19,7 @@ public:
     void merge(vector<pair<int, int>>& D, int i, int j, vector<int>& DP, int diff)
     {
         //cout<<i<<"  "<<j<<endl;
-        vector<pair<int, int>> res;
+        temp={};
         int mid =i+(j-i)/2;
         int i1=i; 
         int j1=mid+1;
@@ -41,30 +42,30 @@ public:
             {
                 if(D[i1].first<=D[j1].first)
                 {
-                    res.push_back(D[i1]);
+                    temp.push_back(D[i1]);
                       i1++;
                 }
                   else
                    {
-                      res.push_back(D[j1]);
+                      temp.push_back(D[j1]);
                       j1++;
                    }
             }
             else if(i1<=mid)
             {
-                    res.push_back(D[i1]);
+                    temp.push_back(D[i1]);
                       i1++;
             }
             else
             {
-                res.push_back(D[j1]);
+                temp.push_back(D[j1]);
                       j1++;
             }
         }
         //cout<<"--"<<endl;
-           for(int k=0; k<res.size(); k++)
+           for(int k=0; k<temp.size(); k++)
             {
-                D[i+k]=res[k];
+                D[i+k]=temp[k];
             }
     }
     long long numberOfPairs(vector<int>& nums1, vector<int>& nums2, int diff) {
