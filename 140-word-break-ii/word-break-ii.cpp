@@ -25,7 +25,7 @@ public:
 
     void calc(string& s, int i, string curr, string ans, vector<string>& res, Node* temp)
     {
-        cout<<i<<"  "<<curr<<" _ "<<ans<<endl;
+       // cout<<i<<"  "<<curr<<" _ "<<ans<<endl;
         if(i==s.size()-1)
         {
             if(temp->ends)
