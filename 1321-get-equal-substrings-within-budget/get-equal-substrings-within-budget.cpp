@@ -1,22 +1,33 @@
 class Solution {
 public:
     int equalSubstring(string s, string t, int maxCost) {
-        vector<int> D(s.size()+1, 0);
-        for(int i=0; i<s.size(); i++)
+        int n =s.size();
+        vector<int> D(n);
+        for(int i=0; i<n; i++)
         {
-           D[i+1]=D[i]+abs(s[i]-t[i]);
+           D[i]=abs(s[i]-t[i]);
         }
 
         int res=0;
+        int curr=0;
+        int i=0;
+        int j=0;
 
-        for(int i=1; i<=s.size(); i++)
+        while(j<n)
         {
-            int tar = D[i]-maxCost;
-            auto it = lower_bound(D.begin(), D.end(), tar);
-            int dis = it-D.begin();
-            res=max(res, i-dis);
-
+            if(curr<=maxCost)
+            {
+                curr+=D[j];
+                j++;
+                res=max(res, j-i-1);
+            }
+            else
+            {
+                curr-=D[i];
+                i++;
+            }
         }
-        return res;
+        if(curr>maxCost)return res;
+        return max(res, j-i);
     }
 };
