@@ -6,10 +6,10 @@ public:
       int i=n-1;
       int ans=0;
       int l=0;
-      while(s[l]=='0')
-      {
-        l++;
-      }
+    //   while(s[l]=='0')
+    //   {
+    //     l++;
+    //   }
       while(i>l)
       {
           if(s[i]=='1')
