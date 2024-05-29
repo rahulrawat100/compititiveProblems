@@ -1,16 +1,11 @@
 class Solution {
 public:
-    int numSteps(string s) {
+    int numSteps(string& s) {
       int n =s.size();
       int carry=0;
       int i=n-1;
       int ans=0;
-      int l=0;
-    //   while(s[l]=='0')
-    //   {
-    //     l++;
-    //   }
-      while(i>l)
+      while(i>0)
       {
           if(s[i]=='1')
           {
