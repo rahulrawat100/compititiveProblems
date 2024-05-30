@@ -2,9 +2,9 @@ class Solution {
 public:
     int countTriplets(vector<int>& arr) {
         int n =arr.size();
-        unordered_map<int, vector<int>> D;
+        unordered_map<int, pair<int, int>> D;
         int x=0;
-        D[0].push_back(0);
+        D[0]={0,1};
         int res=0;
         for(int i=0; i<n; i++)
         {
@@ -12,10 +12,12 @@ public:
            //cout<<x<<endl;
            if(D.find(x)!=D.end())
            {
-              for(int j=0; j<D[x].size();j++)
-                  res+=i-D[x][j];
+                  res+=i*D[x].second-D[x].first;
+                  D[x]={D[x].first+i+1, D[x].second+1};
            }
-           D[x].push_back(i+1);
+           else
+               D[x]={i+1, 1};
+           
         }
         return res;
     }
