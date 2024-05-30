@@ -9,7 +9,6 @@ public:
         for(int i=0; i<n; i++)
         {
            x=x^arr[i];
-           //cout<<x<<endl;
            if(D.find(x)!=D.end())
            {
                   res+=i*D[x].second-D[x].first;
@@ -17,7 +16,6 @@ public:
            }
            else
                D[x]={i+1, 1};
-           
         }
         return res;
     }
