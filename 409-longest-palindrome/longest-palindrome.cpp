@@ -3,24 +3,16 @@ public:
     int longestPalindrome(string s) {
         unordered_map<char, int> D;
         int n =s.size();
-
+        int res=0;
         for(int i=0; i<n; i++)
         {
             D[s[i]]++;
+            if(D[s[i]]==2)
+            {
+                D[s[i]]-=2;
+                res+=2;
+            }
         }
-
-        int res=0;
-        bool odd=false;
-        for(auto i:D)
-        {
-             if(i.second%2==1)
-             {
-                res+=i.second-1;
-                odd=true;
-             }
-             else
-               res+=i.second;
-        }
-        return odd?res+1:res;
+        return res<n?res+1:res;
     }
 };
