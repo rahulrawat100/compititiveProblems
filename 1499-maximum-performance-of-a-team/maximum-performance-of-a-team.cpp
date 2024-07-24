@@ -22,7 +22,7 @@ public:
         perf = max(perf, spd*curr);
         for(int i=n-1-k;i>=0; i--)
         {
-            cout<<i<<"  "<<perf<<endl;
+            //cout<<i<<"  "<<perf<<endl;
             if(pq.top()<D[i].second)
             {
                 int x = pq.top();
