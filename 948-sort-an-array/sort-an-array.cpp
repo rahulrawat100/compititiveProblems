@@ -1,57 +1,64 @@
 class Solution {
 public:
-    vector<int> sort(vector<int>& nums, int i, int j)
+    void sort(vector<int>& nums, int i, int j)
     {
         if(i==j)
-           return {nums[i]};
+           return;
         else
         {
             int mid = i+(j-i)/2;
-            vector<int> L = sort(nums, i, mid);
-            vector<int> R = sort(nums, mid+1, j);
-            merge(L, R);
-            return L;
+            sort(nums, i, mid);
+            sort(nums, mid+1, j);
+            merge(nums, i, j);
         }   
     }
 
-    void merge(vector<int>& L, vector<int>& R)
+    void merge(vector<int>& nums, int i, int j)
     {
+
         vector<int> res;
-        int m =L.size();
-        int n = R.size();
+        int mid = i +(j-i)/2;
+        int m = mid+1;
+        int i1=i; 
+        int j1=mid+1;
+        int n =j+1;
 
-        int i=0; 
-        int j=0;
 
-        while(i<m || j<n)
+        while(i1<m || j1<n)
         {
-            if(i<m&&j<n)
+            if(i1<m&&j1<n)
             {
-                if(L[i]<R[j])
+                if(nums[i1]<nums[j1])
                 {
-                    res.push_back(L[i]);
-                    i++;
+                    res.push_back(nums[i1]);
+                    i1++;
                 }
                 else
                 {
-                    res.push_back(R[j]);
-                    j++;
+                    res.push_back(nums[j1]);
+                    j1++;
                 }
             }
-            else if(i<m)
+            else if(i1<m)
             {
-                   res.push_back(L[i]);
-                    i++; 
+                   res.push_back(nums[i1]);
+                    i1++; 
             }
             else
             {
-                    res.push_back(R[j]);
-                    j++;
+                    res.push_back(nums[j1]);
+                    j1++;
             }
         }
-        L=res;
+
+        for(int k=0; k<res.size(); k++)
+        {
+            nums[i+k]=res[k];
+        }
+
     }
     vector<int> sortArray(vector<int>& nums) {
-        return sort(nums, 0, nums.size()-1);
+        sort(nums, 0, nums.size()-1);
+        return nums;
     }
 };
