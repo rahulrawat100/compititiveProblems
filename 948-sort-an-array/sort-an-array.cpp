@@ -1,46 +1,57 @@
 class Solution {
 public:
-    void heapify(vector<int>& nums, int i, int ignore)
+    vector<int> sort(vector<int>& nums, int i, int j)
     {
-        int n = nums.size();
-        int left = 2*i+1;
-        int right = 2*i+2;
+        if(i==j)
+           return {nums[i]};
+        else
+        {
+            int mid = i+(j-i)/2;
+            vector<int> L = sort(nums, i, mid);
+            vector<int> R = sort(nums, mid+1, j);
+            merge(L, R);
+            return L;
+        }   
+    }
 
-        int maxi = i;
-        if(left<n-ignore)
+    void merge(vector<int>& L, vector<int>& R)
+    {
+        vector<int> res;
+        int m =L.size();
+        int n = R.size();
+
+        int i=0; 
+        int j=0;
+
+        while(i<m || j<n)
         {
-            if(nums[left]>nums[maxi])
-               maxi=left;
+            if(i<m&&j<n)
+            {
+                if(L[i]<R[j])
+                {
+                    res.push_back(L[i]);
+                    i++;
+                }
+                else
+                {
+                    res.push_back(R[j]);
+                    j++;
+                }
+            }
+            else if(i<m)
+            {
+                   res.push_back(L[i]);
+                    i++; 
+            }
+            else
+            {
+                    res.push_back(R[j]);
+                    j++;
+            }
         }
-        if(right<n-ignore)
-        {
-            if(nums[right]>nums[maxi])
-               maxi=right;
-        }
-        if(maxi!=i)
-        {
-            int t = nums[i];
-            nums[i]=nums[maxi];
-            nums[maxi]=t;
-            heapify(nums, maxi, ignore);
-        }
+        L=res;
     }
     vector<int> sortArray(vector<int>& nums) {
-        int n = nums.size();
-
-        for(int i=n/2; i>=0; i--)
-        {
-            heapify(nums, i, 0);
-        }
-
-        for(int i=0; i<n-1; i++)
-        {
-            int t=nums[n-1-i];
-            nums[n-1-i]=nums[0];
-            nums[0]=t;
-            heapify(nums, 0, i+1);
- 
-        }
-        return nums;
+        return sort(nums, 0, nums.size()-1);
     }
 };
