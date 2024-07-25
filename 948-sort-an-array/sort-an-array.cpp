@@ -1,5 +1,6 @@
 class Solution {
 public:
+           vector<int> res;
     void sort(vector<int>& nums, int i, int j)
     {
         if(i==j)
@@ -15,15 +16,12 @@ public:
 
     void merge(vector<int>& nums, int i, int j)
     {
-
-        vector<int> res;
+        res={};
         int mid = i +(j-i)/2;
         int m = mid+1;
         int i1=i; 
         int j1=mid+1;
         int n =j+1;
-
-
         while(i1<m || j1<n)
         {
             if(i1<m&&j1<n)
