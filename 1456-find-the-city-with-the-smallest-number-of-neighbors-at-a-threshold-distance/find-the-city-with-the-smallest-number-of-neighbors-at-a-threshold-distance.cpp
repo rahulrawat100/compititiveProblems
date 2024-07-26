@@ -18,6 +18,8 @@ public:
                 trav[p.second]=true;
                 for(int j=0; j<adj[p.second].size(); j++)
                 {
+                  if(trav[adj[p.second][j].first])
+                     continue;
                     pq.push({d-adj[p.second][j].second, adj[p.second][j].first});
                 }
             }
