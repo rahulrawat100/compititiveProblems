@@ -1,56 +1,50 @@
 class Solution {
 public:
-    int calc(vector<vector<pair<int,int>>>& adj, priority_queue<pair<int, int>>& pq, vector<bool>& trav)
-    {
-        if(pq.size()==0 || pq.top().first<0)
-           return 0;
-        else
-        {
-            int d = pq.top().first;
-            int res=0;
-            while(!pq.empty() && pq.top().first==d)
-            {
-                pair<int, int> p = pq.top();
-                pq.pop();
-               if(trav[p.second])
-                  continue;
-                res++;
-                trav[p.second]=true;
-                for(int j=0; j<adj[p.second].size(); j++)
-                {
-                  if(trav[adj[p.second][j].first])
-                     continue;
-                    pq.push({d-adj[p.second][j].second, adj[p.second][j].first});
-                }
-            }
-            return res+calc(adj, pq, trav);
-        }   
-    }
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        int city=n-1;
-        int conn=INT_MAX;
-        vector<vector<pair<int,int>>> adj(n);
+        vector<vector<int>> ShortPath(n, vector<int>(n, INT_MAX));
 
-        for(int i=0; i<edges.size(); i++)
+        int m = edges.size();
+        for(int i=0; i<n; i++)
+        {
+            ShortPath[i][i]=0;
+        }
+        for(int i=0; i<m; i++)
         {
             int u = edges[i][0];
             int v = edges[i][1];
             int w = edges[i][2];
-
-            adj[u].push_back({v, w});
-            adj[v].push_back({u, w});
+            ShortPath[u][v]=w;
+            ShortPath[v][u]=w;
         }
+
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                for(int k=0; k<n; k++)
+                {
+                   if(ShortPath[j][i]<INT_MAX && ShortPath[i][k]<INT_MAX)
+                   { 
+                    ShortPath[j][k]= min(ShortPath[j][k], ShortPath[j][i] + ShortPath[i][k]);
+                   }
+                }
+            }
+        }
+        int conn=INT_MAX;
+        int city=n-1;
         for(int i=n-1; i>=0; i--)
         {
-            vector<bool> trav(n);
-            priority_queue<pair<int, int>> pq;
-            pq.push({distanceThreshold, i});
-           int curr = calc(adj, pq, trav);
-           if(curr<conn)
-           {
-             city=i;
-             conn=curr;
-           }
+            int tot=0;
+            for(int j=0; j<n; j++)
+            {
+                if(ShortPath[i][j]<=distanceThreshold)
+                  tot++;
+            }
+            if(tot<conn)
+            {
+                conn=tot;
+                city=i;
+            }
         }
         return city;
     }
