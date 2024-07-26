@@ -1,20 +1,28 @@
 class Solution {
 public:
-    int calc(vector<vector<pair<int,int>>>& adj, int dis, int i, vector<int>& trav)
+    int calc(vector<vector<pair<int,int>>>& adj, priority_queue<pair<int, int>>& pq, vector<bool>& trav)
     {
-        if(dis<0 || trav[i]>=dis)
-          return 0;
+        if(pq.size()==0 || pq.top().first<0)
+           return 0;
         else
         {
-         //    cout<<i<<"  ";
-            int res=trav[i]!=-1?0:1;
-            trav[i]=dis;
-            for(int j=0; j<adj[i].size(); j++)
+            int d = pq.top().first;
+            int res=0;
+            while(!pq.empty() && pq.top().first==d)
             {
-               res += calc(adj, dis-adj[i][j].second, adj[i][j].first, trav);
+                pair<int, int> p = pq.top();
+                pq.pop();
+               if(trav[p.second])
+                  continue;
+                res++;
+                trav[p.second]=true;
+                for(int j=0; j<adj[p.second].size(); j++)
+                {
+                    pq.push({d-adj[p.second][j].second, adj[p.second][j].first});
+                }
             }
-            return res;
-        }  
+            return res+calc(adj, pq, trav);
+        }   
     }
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
         int city=n-1;
@@ -32,15 +40,16 @@ public:
         }
         for(int i=n-1; i>=0; i--)
         {
-            vector<int> trav(n, -1);
-           int curr = calc(adj,  distanceThreshold, i, trav);
-          // cout<<curr<<endl;
+            vector<bool> trav(n);
+            priority_queue<pair<int, int>> pq;
+            pq.push({distanceThreshold, i});
+           int curr = calc(adj, pq, trav);
+           cout<<i<<" "<<curr<<endl;
            if(curr<conn)
            {
              city=i;
              conn=curr;
            }
-          // cout<<i<<"  "<<city<<endl;
         }
         return city;
     }
