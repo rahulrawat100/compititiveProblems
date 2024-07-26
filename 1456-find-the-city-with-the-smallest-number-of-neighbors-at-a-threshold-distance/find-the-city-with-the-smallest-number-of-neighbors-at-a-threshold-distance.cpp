@@ -6,7 +6,7 @@ public:
           return 0;
         else
         {
-             cout<<i<<"  ";
+         //    cout<<i<<"  ";
             int res=trav[i]!=-1?0:1;
             trav[i]=dis;
             for(int j=0; j<adj[i].size(); j++)
