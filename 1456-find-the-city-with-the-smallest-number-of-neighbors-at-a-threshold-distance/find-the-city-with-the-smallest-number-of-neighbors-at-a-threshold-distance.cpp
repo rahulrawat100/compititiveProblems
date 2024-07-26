@@ -44,7 +44,7 @@ public:
             priority_queue<pair<int, int>> pq;
             pq.push({distanceThreshold, i});
            int curr = calc(adj, pq, trav);
-           cout<<i<<" "<<curr<<endl;
+           //cout<<i<<" "<<curr<<endl;
            if(curr<conn)
            {
              city=i;
