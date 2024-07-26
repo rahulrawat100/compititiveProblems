@@ -1,62 +1,38 @@
 class Solution {
 public:
-           vector<int> res;
-    void sort(vector<int>& nums, int i, int j)
+    void heapify(vector<int>& nums, int i, int ignore)
     {
-        if(i==j)
-           return;
-        else
-        {
-            int mid = i+(j-i)/2;
-            sort(nums, i, mid);
-            sort(nums, mid+1, j);
-            merge(nums, i, j);
-        }   
-    }
-
-    void merge(vector<int>& nums, int i, int j)
-    {
-        res={};
-        int mid = i +(j-i)/2;
-        int m = mid+1;
-        int i1=i; 
-        int j1=mid+1;
-        int n =j+1;
-        while(i1<m || j1<n)
-        {
-            if(i1<m&&j1<n)
-            {
-                if(nums[i1]<nums[j1])
-                {
-                    res.push_back(nums[i1]);
-                    i1++;
-                }
-                else
-                {
-                    res.push_back(nums[j1]);
-                    j1++;
-                }
-            }
-            else if(i1<m)
-            {
-                   res.push_back(nums[i1]);
-                    i1++; 
-            }
-            else
-            {
-                    res.push_back(nums[j1]);
-                    j1++;
-            }
-        }
-
-        for(int k=0; k<res.size(); k++)
-        {
-            nums[i+k]=res[k];
-        }
-
+        int c1 = 2*i+1;
+        int c2 = 2*i+2;
+        int maxi =i;
+        //cout<<c1<<"  "<<c2<<endl;
+        if(c1<(nums.size()-ignore)&&nums[c1]>nums[maxi])
+           maxi = c1;
+        if(c2<(nums.size()-ignore)&&nums[c2]>nums[maxi])
+           maxi = c2;
+        if(maxi!=i)
+        {   
+        int t= nums[maxi];
+        nums[maxi]=nums[i];
+        nums[i] = t;
+        heapify(nums, maxi, ignore);
+        }      
     }
     vector<int> sortArray(vector<int>& nums) {
-        sort(nums, 0, nums.size()-1);
+        int n = nums.size();
+
+        for(int i=n/2; i>=0; i--)
+        {
+            heapify(nums, i, 0);
+        }
+
+        for(int i=0; i<n-1; i++)
+        {
+            int t = nums[0];
+            nums[0]=nums[n-1-i];
+            nums[n-1-i]=t;
+            heapify(nums, 0, i+1);
+        }
         return nums;
     }
 };
