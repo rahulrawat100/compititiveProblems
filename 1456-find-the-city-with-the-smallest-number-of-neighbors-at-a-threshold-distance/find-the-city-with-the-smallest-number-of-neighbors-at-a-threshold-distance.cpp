@@ -46,7 +46,6 @@ public:
             priority_queue<pair<int, int>> pq;
             pq.push({distanceThreshold, i});
            int curr = calc(adj, pq, trav);
-           //cout<<i<<" "<<curr<<endl;
            if(curr<conn)
            {
              city=i;
@@ -56,11 +55,3 @@ public:
         return city;
     }
 };
-/*
-                      1            10
-                 1------------>4----------->5
-         10           1
-  0------------->1------------>3
-         1             1
-  0-------------->2---------->3
-  */
