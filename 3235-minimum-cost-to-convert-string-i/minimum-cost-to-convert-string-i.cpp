@@ -15,7 +15,6 @@ public:
            int u = original[i]-'a';
            int v = changed[i]-'a';
            long long w = cost[i];
-           if(u!=v)
            D[u][v]=min(D[u][v],w);
         }
 
