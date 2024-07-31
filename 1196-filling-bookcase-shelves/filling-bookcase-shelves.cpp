@@ -10,8 +10,8 @@ public:
             {
                 int res=INT_MAX;
                 if(currW+books[i][0]<=sW)
-                   res= min(res, calc(books, i+1, currW+books[i][0], max(maxH, books[i][1]), sW, DP));
-                res =min(res, maxH +calc(books, i+1, books[i][0], books[i][1], sW, DP));   
+                   res= min(res, calc(books, i+1, currW+books[i][0], max(maxH, books[i][1]), sW, DP));     
+                  res =min(res, maxH +calc(books, i+1, books[i][0], books[i][1], sW, DP));   
                 return DP[i][currW][maxH]=res;
             }
     }
