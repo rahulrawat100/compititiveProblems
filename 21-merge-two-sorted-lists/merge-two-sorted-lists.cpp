@@ -51,14 +51,12 @@ public:
             else if(list1!=NULL)
             {
                     curr->next=list1;
-                    list1=list1->next;
-                    curr=curr->next;
+                    break;
             }
               else
                {
                      curr->next=list2;
-                    list2=list2->next;
-                    curr=curr->next;
+                    break;
                } 
         }    
         return head;  
