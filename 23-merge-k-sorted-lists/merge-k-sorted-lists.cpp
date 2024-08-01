@@ -10,45 +10,48 @@
  */
 class Solution {
 public:
-    ListNode* Merge(vector<ListNode*>& lists, int i, int j)
+    ListNode* merge(ListNode* A, ListNode* B)
     {
-        if(i==j)
-          return lists[i];
+        //cout<<A->val<<"  "<<B->val<<endl;
+        if(A==NULL)
+           return B;
+        if(B==NULL)
+           return A;   
+        if(A->val<=B->val)
+        {
+            ListNode* head = A;
+            ListNode* prev = A;
+            while(A!=NULL&&A->val<=B->val)
+            {
+                prev=A;
+                A=A->next;
+            }
+            prev->next=merge(A, B);
+            return head;
+        }
         else
         {
-            int mid = i+(j-i)/2;
-            ListNode* A= Merge(lists, i, mid);
-            ListNode* B= Merge(lists, mid+1, j);
-            return merged(A, B); 
-        }  
+            ListNode* head = B;
+            ListNode* prev = B;
+            while(B!=NULL&&B->val<A->val)
+            {
+                prev=B;
+                B=B->next;
+            }
+            prev->next=merge(A, B);
+            return head;            
+        }
+        
     }
-
-    ListNode* merged(ListNode* A, ListNode* B)
-    {
-        ListNode* res;
-        if(A==NULL&&B==NULL)
-          return NULL;
-        else if(A==NULL)
-          return B;
-        else if(B==NULL)
-          return A;    
-        else if(A->val<B->val)
-          {
-              res=A;
-              res->next=merged(A->next, B);
-              return res;
-          }
-         else
-         {
-              res=B;
-              res->next=merged(A, B->next);
-              return res;
-         } 
-    }
-
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        int n= lists.size();
-        if(n==0)return NULL;
-        return Merge(lists, 0, n-1);
+        int n = lists.size();
+        if(n==0)
+           return NULL;
+        ListNode* head=lists[0];
+        for(int i=1; i<n; i++)
+        {
+            head = merge(head, lists[i]);
+        }
+        return head;
     }
 };
