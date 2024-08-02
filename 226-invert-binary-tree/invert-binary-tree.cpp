@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    TreeNode* calc(TreeNode* root)
-    {
+    TreeNode* invertTree(TreeNode* root) {
         if(root==NULL)
            return NULL;
         else
-        {
-            TreeNode* temp = new TreeNode(root->val);
-            temp->left=calc(root->right);
-            temp->right=calc(root->left);
-            return temp;
-        }   
-    }
-    TreeNode* invertTree(TreeNode* root) {
-        return calc(root);
+           {
+             TreeNode* left = root->left;
+             TreeNode* right = root->right;
+
+             root->left = invertTree(right);
+             root->right = invertTree(left);
+
+             return root;
+           }   
     }
 };
