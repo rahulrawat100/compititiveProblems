@@ -2,8 +2,8 @@ class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
         priority_queue<pair<int, pair<int, int>>> pq;
-
-        for(int i=0; i<nums1.size();i++)
+        int lim = min((int)nums1.size(), k);
+        for(int i=0; i<lim;i++)
         {
             pq.push({-nums1[i]-nums2[0], {i, 0}});
         }
