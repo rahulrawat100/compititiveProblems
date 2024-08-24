@@ -12,6 +12,10 @@ public:
     {
         return a[2]<b[2];
     }
+   static int compi(vector<int>& a, vector<int> &b)
+    {
+        return a[0]<b[0];
+    }
     vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) {
         vector<vector<int>> sq;
 
@@ -21,7 +25,7 @@ public:
         }
         
         sort(edgeList.begin(), edgeList.end(), comp);
-        sort(sq.begin(), sq.end());
+        sort(sq.begin(), sq.end(), compi);
         vector<int> par(n);
 
         for(int i=0; i<n; i++)
