@@ -26,7 +26,7 @@ public:
 
     }
     int maximumANDSum(vector<int>& nums, int numSlots) {
-        vector<vector<int>> DP(nums.size(), vector<int>(1000000, -1));
+        vector<vector<int>> DP(nums.size(), vector<int>(pow(2,2*numSlots+1), -1));
         return calc(nums, numSlots, 0, 0, DP);   
     }
 };
