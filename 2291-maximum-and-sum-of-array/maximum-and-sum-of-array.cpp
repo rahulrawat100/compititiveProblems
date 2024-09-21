@@ -14,10 +14,11 @@ public:
             for(int j=1; j<=2*numSlots;j++)
             {
                 x*=2;
-                if((t&x)>0 ||(nums[i]&((j+1)/2))==0)
+                int y=(nums[i]&((j+1)/2));
+                if((t&x)>0 ||y==0)
                   continue;
                 t+=x;  
-                res=max(res, (nums[i]&((j+1)/2))+ calc(nums, numSlots, i+1, t, DP)); 
+                res=max(res, y+ calc(nums, numSlots, i+1, t, DP)); 
                 t-=x;
             }
             return DP[i][t]=res;
