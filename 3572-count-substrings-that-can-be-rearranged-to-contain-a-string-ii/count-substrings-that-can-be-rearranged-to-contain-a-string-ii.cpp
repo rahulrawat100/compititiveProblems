@@ -39,21 +39,10 @@ public:
 
         vector<int> freq(26, 0);
         int n = word1.size();
-
-        //vector<vector<int>> DP(n, vector<int>(26, 0));
         for(int i=0; i<m; i++)
         {
             freq[word2[i]-'a']++;
         }
-        // DP[0][word1[0]-'a']++;
-        // for(int i=1; i<n; i++)
-        // {
-        //     for(int j=0; j<26; j++)
-        //     {
-        //        DP[i][j]=DP[i-1][j];
-        //     }
-        //     DP[i][word1[i]-'a']++;
-        // }
 
         long long res=0;
         vector<int> f(26, 0);
@@ -63,10 +52,10 @@ public:
              for(; j<n;j++)
              {
                 f[word1[j]-'a']++;
-                if(check(f, freq))
+                if(f[word1[j]-'a']==freq[word1[j]-'a']&&check(f, freq))
                 {
                     res+=n-j;
-                     f[word1[j]-'a']--;
+                    f[word1[j]-'a']--;
                     break;
                 }
              }
