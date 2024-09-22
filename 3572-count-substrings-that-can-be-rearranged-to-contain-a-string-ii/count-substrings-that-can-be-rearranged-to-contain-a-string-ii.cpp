@@ -10,30 +10,6 @@ public:
         return true;
     }
 
-    // int binser(string& word1, vector<vector<int>>& DP,vector<int>&freq, int b, int i, int j)
-    // {
-    //     if(i==j)
-    //        return i;
-    //      else
-    //      {
-    //         int mid = i+(j-i)/2;
-    //         vector<int> fr(26, 0);
-    //         if(b==0)
-    //            fr=DP[mid];
-    //         else
-    //           {
-    //             for(int p=0; p<26; p++)
-    //             {
-    //                 fr[i]=DP[mid][p]-DP[b-1][p];
-    //             }
-    //             if(check(freq, fr))
-    //             {
-                    
-    //             }
-    //           }   
-    //      }  
-    // }
-
     long long validSubstringCount(string word1, string word2) {
         int m= word2.size();
 
@@ -52,7 +28,7 @@ public:
              for(; j<n;j++)
              {
                 f[word1[j]-'a']++;
-                if(f[word1[j]-'a']==freq[word1[j]-'a']&&check(f, freq))
+                if(check(f, freq))
                 {
                     res+=n-j;
                     f[word1[j]-'a']--;
