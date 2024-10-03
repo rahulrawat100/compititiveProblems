@@ -2,9 +2,11 @@ class Solution {
 public:
     void heapify(vector<int>& nums, int i, int leave)
     {
+        int n = nums.size();
+        if(i>=n-leave)
+           return;
         int left = 2*i+1;
         int right= 2*i+2;
-        int n = nums.size();
         int min_ind = i;
         if(left<n-leave&&nums[left]>nums[min_ind])
            min_ind=left;
