@@ -2,7 +2,7 @@ class Solution {
 public:
     bool IsMatch(vector<int>& freq_t, vector<int>& freq)
     {
-        for(int i=0; i<100; i++)
+        for(int i=0; i<60; i++)
         {
             if(freq_t[i]>freq[i])
                return false;
@@ -13,14 +13,14 @@ public:
         int n =s.size();
         int m=t.size();
         if(n<m)return "";
-        vector<int> freq_t(100, 0);
+        vector<int> freq_t(60, 0);
 
         for(int i=0; i<m; i++)
         {
             freq_t[t[i]-'A']++;
         }
-        cout<<"**"<<endl;
-        vector<int> freq(100, 0);
+      //  cout<<"**"<<endl;
+        vector<int> freq(60, 0);
 
         int i=0; 
         int j=0;
