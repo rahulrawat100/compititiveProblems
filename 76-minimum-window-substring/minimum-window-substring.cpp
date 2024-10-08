@@ -34,8 +34,10 @@ public:
                 freq[s[j]-'A']++;
                 j++;
             }
-
-            while(i<j&&IsMatch(freq_t, freq))
+            
+            if(!IsMatch(freq_t, freq))
+              continue;
+            while(i<j)
             {
                 if(j-i-1<resj-resi)
                 {
@@ -45,6 +47,8 @@ public:
                 }
                 freq[s[i]-'A']--;
                 i++;
+                if(freq[s[i-1]-'A']<freq_t[s[i-1]-'A'])
+                  break;
             }
         }
 
