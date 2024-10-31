@@ -15,7 +15,7 @@ public:
                if(nums[j]<nums[i]) 
                   DP1[i]=max(DP1[i], 1+DP1[j]);
             }
-            cout<<i<<"  "<<DP1[i]<<endl;
+           // cout<<i<<"  "<<DP1[i]<<endl;
         }
 
                
@@ -27,7 +27,7 @@ public:
                if(nums[j]<nums[i]) 
                   DP2[i]=max(DP2[i], 1+DP2[j]);
             }
-            cout<<i<<" -- "<<DP2[i]<<endl;
+          //  cout<<i<<" -- "<<DP2[i]<<endl;
         }
 
         for(int i=1; i<n-1; i++)
