@@ -2,18 +2,23 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<int> D;
-        D.push_back(nums[0]);
+
+        vector<int> lis;
+        lis.push_back(nums[0]);
+
         for(int i=1; i<n; i++)
         {
-            if(nums[i]>D.back())
-                D.push_back(nums[i]);
+            auto it = lower_bound(lis.begin(), lis.end(), nums[i]);
+
+            if(it==lis.end())
+               lis.push_back(nums[i]);
             else
             {
-               int ind= lower_bound(D.begin(), D.end(), nums[i])-D.begin();
-               D[ind]=nums[i];
-            }  
+                int ind = it-lis.begin();
+                lis[ind]=nums[i];
+            }
+                  
         }
-        return D.size();
+        return lis.size();
     }
 };
