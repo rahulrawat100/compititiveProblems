@@ -1,22 +1,29 @@
 class Solution {
 public:
-    int calc(vector<int>& coins, int amount, int i, vector<vector<int>>& DP)
+    long long calc(vector<int>& coins, int amount, vector<int>& DP)
     {
         if(amount==0)
            return 0;
-        else if(i==coins.size() || amount<0)
-           return INT_MAX/2;
-        else if(DP[i][amount]!=-1)
-           return DP[i][amount];   
+        else if(amount<coins[0])
+           return INT_MAX;
+        else if(DP[amount]!=-1)
+            return DP[amount];   
         else
-           {
-               return DP[i][amount]=min(1+calc(coins, amount-coins[i], i, DP), calc(coins, amount, i+1, DP));
-           }      
+        {
+            long long res=INT_MAX;
+
+            for(int i=0; i<coins.size(); i++)
+            {
+                if(coins[i]>amount)break;
+                res=min(res, 1+calc(coins, amount-coins[i], DP));
+            }
+            return DP[amount]=res;
+        }      
     }
     int coinChange(vector<int>& coins, int amount) {
-        int n = coins.size();
-        vector<vector<int>> DP(n, vector<int>(amount+1, -1));
-        int res= calc(coins, amount, 0, DP);
-        return res>=INT_MAX/2?-1:res;
+        vector<int> DP(amount+1, -1);
+        sort(coins.begin(), coins.end());
+        int res= calc(coins, amount, DP);
+        return res==INT_MAX? -1:res;
     }
 };
