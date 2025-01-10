@@ -27,7 +27,7 @@ public:
             int ind = s[i]-'a';
             curr+=mpi[i];
             ind+=curr;   
-            ind=(ind+260000)%26;
+            ind=(ind)%26;
             //cout<<ind<<endl;
             s[i]=(char)(ind+'a');   
         }
@@ -37,8 +37,9 @@ public:
         {
             int ind = s[i]-'a';
             curr+=mpd[i];
+            curr%=26;
             ind-=curr;   
-            ind=(ind+260000)%26;
+            ind=(ind+26)%26;
             //cout<<ind<<endl;
             s[i]=(char)(ind+'a');   
         }
