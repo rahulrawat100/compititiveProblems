@@ -8,6 +8,7 @@ class Solution {
 public:
     Trie* root;
     int count=0;
+    unordered_map<string, bool> trav;
     void Insert(string s)
     {
         Trie* temp = root;
@@ -37,8 +38,9 @@ public:
     bool Check(vector<vector<string>>& ingredients,unordered_map<string, int>& D, vector<string>& recipes, int i, vector<string>& res)
     {
         int j=0;
-        if(count>101)
-           return false;
+        if(trav[recipes[i]])
+           return Contains(recipes[i]);
+        trav[recipes[i]]=true;   
            count++;
         while(j<ingredients[i].size())
         {
