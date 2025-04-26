@@ -14,6 +14,7 @@ public:
         int res=0;
         for(int i=0; i<n; i++)
         {
+            if(nums[i]-k>=0)
            res+=D[nums[i]-k];
         }
         return res;
