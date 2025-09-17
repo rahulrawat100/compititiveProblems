@@ -1,7 +1,7 @@
 class Solution {
 public:
     int mod = pow(10, 9)+7;
-    int calc(int day, int delay, int forget, int n, vector<int>& D)
+    int calc(int day, int delay, int forget, int n, int D[])
     {
         if(day>n)
            return 0;
@@ -20,7 +20,11 @@ public:
         }   
     }
     int peopleAwareOfSecret(int n, int delay, int forget) {
-        vector<int> D(n+1, -1);
+        int D[n+1];
+        for(int i=0; i<=n; i++)
+        {
+            D[i]=-1;
+        }
         return calc(1, delay, forget, n, D);
     }
 };
