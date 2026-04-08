@@ -1,10 +1,10 @@
 public class Solution {
     public int XorAfterQueries(int[] nums, int[][] queries) {
         int mod = (int)Math.Pow(10, 9)+7;
-        List<long> arr = new List<long>(nums.Length);
-        foreach(var num in nums)
+        long[] arr = new long[nums.Length];
+        for(int i=0; i<nums.Length; i++)
         {
-            arr.Add(num);
+            arr[i]=nums[i];
         }
         foreach(var q in queries)
         {
